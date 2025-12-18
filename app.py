@@ -50,6 +50,12 @@ def play_round():
     if player1 not in LEADERBOARD or player2 not in LEADERBOARD:
         return jsonify({"message": "Both players must be registered."}), 400
     
+    # Check if player scores are None and initialize them if necessary
+    if LEADERBOARD[player1].get('score') is None:
+        LEADERBOARD[player1]['score'] = 0
+    if LEADERBOARD[player2].get('score') is None:
+        LEADERBOARD[player2]['score'] = 0
+
     valid_choices = ['rock', 'paper', 'scissors']
     if player1_choice not in valid_choices or player2_choice not in valid_choices:
         return jsonify({"message": "Invalid choice! Choose from 'rock', 'paper', or 'scissors'."}), 400
